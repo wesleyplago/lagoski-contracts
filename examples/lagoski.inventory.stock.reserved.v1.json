@@ -1,0 +1,21 @@
+{
+  "specversion": "1.0",
+  "id": "01M7MQR76ZF12JVS6V40BEB8AM",
+  "source": "lagoski/inventory",
+  "type": "lagoski.inventory.stock.reserved.v1",
+  "subject": "order/ord_01JD3X7Q9Z8K2M4N6P8R0T2V4X",
+  "time": "2026-11-17T12:29:47.616Z",
+  "datacontenttype": "application/json",
+  "correlationid": "ord_01JD3X7Q9Z8K2M4N6P8R0T2V4X",
+  "data": {
+    "orderId": "ord_01JD3X7Q9Z8K2M4N6P8R0T2V4X",
+    "reservationId": "rsv_01JD3X7Q9Z8K2M4N6P8R0T2V4Y",
+    "expiresAt": "2026-11-17T15:00:00.000Z",
+    "lines": [
+      {
+        "sku": "TEE-ONDASDOLAG-PRETO-M",
+        "quantity": 2
+      }
+    ]
+  }
+}

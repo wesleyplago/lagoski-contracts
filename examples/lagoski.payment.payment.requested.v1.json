@@ -1,0 +1,18 @@
+{
+  "specversion": "1.0",
+  "id": "01M7MQR7PGQD7CXS4F543X27R1",
+  "source": "lagoski/payment",
+  "type": "lagoski.payment.payment.requested.v1",
+  "subject": "order/ord_01JD3X7Q9Z8K2M4N6P8R0T2V4X",
+  "time": "2026-11-17T12:29:48.112Z",
+  "datacontenttype": "application/json",
+  "correlationid": "ord_01JD3X7Q9Z8K2M4N6P8R0T2V4X",
+  "data": {
+    "paymentId": "pay_01JD3X7Q9Z8K2M4N6P8R0T2V4Z",
+    "orderId": "ord_01JD3X7Q9Z8K2M4N6P8R0T2V4X",
+    "amountCents": 17980,
+    "currency": "brl",
+    "checkoutUrl": "https://checkout.stripe.com/c/pay/cs_test_a1b2c3",
+    "expiresAt": "2026-11-17T15:00:00.000Z"
+  }
+}

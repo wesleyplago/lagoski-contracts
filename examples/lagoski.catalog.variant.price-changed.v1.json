@@ -1,0 +1,16 @@
+{
+  "specversion": "1.0",
+  "id": "01M7MQR67497S98K7262JZP04Y",
+  "source": "lagoski/catalog",
+  "type": "lagoski.catalog.variant.price-changed.v1",
+  "subject": "variant/TEE-ONDAS-PRETO-M",
+  "time": "2026-11-17T12:29:46.596Z",
+  "datacontenttype": "application/json",
+  "correlationid": "prd_ondas",
+  "data": {
+    "productId": "prd_ondas",
+    "sku": "TEE-ONDAS-PRETO-M",
+    "oldPriceCents": 8990,
+    "newPriceCents": 7990
+  }
+}

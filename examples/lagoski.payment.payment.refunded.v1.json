@@ -1,0 +1,15 @@
+{
+  "specversion": "1.0",
+  "id": "01M7MQR7PHFH2F6HC9WGYHHWNB",
+  "source": "lagoski/payment",
+  "type": "lagoski.payment.payment.refunded.v1",
+  "subject": "order/ord_01JD3X7Q9Z8K2M4N6P8R0T2V4X",
+  "time": "2026-11-17T12:29:48.113Z",
+  "datacontenttype": "application/json",
+  "correlationid": "ord_01JD3X7Q9Z8K2M4N6P8R0T2V4X",
+  "data": {
+    "paymentId": "pay_01JD3X7Q9Z8K2M4N6P8R0T2V4Z",
+    "orderId": "ord_01JD3X7Q9Z8K2M4N6P8R0T2V4X",
+    "amountCents": 17980
+  }
+}

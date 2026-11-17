@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/wesleyplago/lagoski-contracts/schemas/ordering/order.cancelled.v1.json",
+  "title": "lagoski.ordering.order.cancelled.v1",
+  "description": "Pedido cancelado antes da confirmação.",
+  "type": "object",
+  "required": [
+    "orderId",
+    "customerId",
+    "reason"
+  ],
+  "properties": {
+    "orderId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^ord_[0-9A-Z]{26}$"
+    },
+    "customerId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^cus_"
+    },
+    "reason": {
+      "enum": [
+        "OUT_OF_STOCK",
+        "PAYMENT_DECLINED",
+        "RESERVATION_EXPIRED"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

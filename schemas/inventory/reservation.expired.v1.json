@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/wesleyplago/lagoski-contracts/schemas/inventory/reservation.expired.v1.json",
+  "title": "lagoski.inventory.reservation.expired.v1",
+  "description": "A reserva venceu sem confirmação do pedido.",
+  "type": "object",
+  "required": [
+    "orderId",
+    "reservationId"
+  ],
+  "properties": {
+    "orderId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^ord_[0-9A-Z]{26}$"
+    },
+    "reservationId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^rsv_"
+    }
+  },
+  "additionalProperties": true
+}

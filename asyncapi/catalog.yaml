@@ -1,0 +1,78 @@
+asyncapi: 3.0.0
+info:
+  title: Lagoski Catalog events
+  version: 0.1.0
+  description: |
+    Eventos publicados pelo bounded context catalog no tópico catalog.events.
+    Envelope CloudEvents 1.0 (modo estruturado); o atributo de mensagem ce_type
+    carrega o tipo e é usado nos filtros das assinaturas (SNS filter policy / filtro do Pub/Sub).
+defaultContentType: application/json
+channels:
+  catalogEvents:
+    address: catalog.events
+    description: Tópico lógico. Nome físico lagoski-<env>-catalog-events (SNS na AWS, Pub/Sub no GCP).
+    messages:
+      productPublished:
+        $ref: '#/components/messages/productPublished'
+      variantPriceChanged:
+        $ref: '#/components/messages/variantPriceChanged'
+      productDiscontinued:
+        $ref: '#/components/messages/productDiscontinued'
+operations:
+  publishCatalogEvents:
+    action: send
+    channel:
+      $ref: '#/channels/catalogEvents'
+components:
+  messages:
+    productPublished:
+      name: lagoski.catalog.product.published.v1
+      summary: "Produto publicado com todas as variantes (tamanho × cor) e preço de lista."
+      headers:
+        type: object
+        properties:
+          ce_type:
+            const: lagoski.catalog.product.published.v1
+          correlation_id:
+            type: string
+      payload:
+        allOf:
+          - $ref: '../schemas/cloudevent.json'
+          - type: object
+            properties:
+              data:
+                $ref: '../schemas/catalog/product.published.v1.json'
+    variantPriceChanged:
+      name: lagoski.catalog.variant.price-changed.v1
+      summary: "Preço de lista de uma variante mudou. Pedidos já fechados não mudam."
+      headers:
+        type: object
+        properties:
+          ce_type:
+            const: lagoski.catalog.variant.price-changed.v1
+          correlation_id:
+            type: string
+      payload:
+        allOf:
+          - $ref: '../schemas/cloudevent.json'
+          - type: object
+            properties:
+              data:
+                $ref: '../schemas/catalog/variant.price-changed.v1.json'
+    productDiscontinued:
+      name: lagoski.catalog.product.discontinued.v1
+      summary: "Produto saiu de venda; os SKUs deixam de aceitar novos pedidos."
+      headers:
+        type: object
+        properties:
+          ce_type:
+            const: lagoski.catalog.product.discontinued.v1
+          correlation_id:
+            type: string
+      payload:
+        allOf:
+          - $ref: '../schemas/cloudevent.json'
+          - type: object
+            properties:
+              data:
+                $ref: '../schemas/catalog/product.discontinued.v1.json'

@@ -1,0 +1,78 @@
+asyncapi: 3.0.0
+info:
+  title: Lagoski Fulfillment events
+  version: 0.1.0
+  description: |
+    Eventos publicados pelo bounded context fulfillment no tópico fulfillment.events.
+    Envelope CloudEvents 1.0 (modo estruturado); o atributo de mensagem ce_type
+    carrega o tipo e é usado nos filtros das assinaturas (SNS filter policy / filtro do Pub/Sub).
+defaultContentType: application/json
+channels:
+  fulfillmentEvents:
+    address: fulfillment.events
+    description: Tópico lógico. Nome físico lagoski-<env>-fulfillment-events (SNS na AWS, Pub/Sub no GCP).
+    messages:
+      shipmentCreated:
+        $ref: '#/components/messages/shipmentCreated'
+      shipmentDispatched:
+        $ref: '#/components/messages/shipmentDispatched'
+      shipmentDelivered:
+        $ref: '#/components/messages/shipmentDelivered'
+operations:
+  publishFulfillmentEvents:
+    action: send
+    channel:
+      $ref: '#/channels/fulfillmentEvents'
+components:
+  messages:
+    shipmentCreated:
+      name: lagoski.fulfillment.shipment.created.v1
+      summary: "Remessa criada para um pedido confirmado."
+      headers:
+        type: object
+        properties:
+          ce_type:
+            const: lagoski.fulfillment.shipment.created.v1
+          correlation_id:
+            type: string
+      payload:
+        allOf:
+          - $ref: '../schemas/cloudevent.json'
+          - type: object
+            properties:
+              data:
+                $ref: '../schemas/fulfillment/shipment.created.v1.json'
+    shipmentDispatched:
+      name: lagoski.fulfillment.shipment.dispatched.v1
+      summary: "Transportadora coletou; código de rastreio disponível."
+      headers:
+        type: object
+        properties:
+          ce_type:
+            const: lagoski.fulfillment.shipment.dispatched.v1
+          correlation_id:
+            type: string
+      payload:
+        allOf:
+          - $ref: '../schemas/cloudevent.json'
+          - type: object
+            properties:
+              data:
+                $ref: '../schemas/fulfillment/shipment.dispatched.v1.json'
+    shipmentDelivered:
+      name: lagoski.fulfillment.shipment.delivered.v1
+      summary: "Cliente recebeu o pacote."
+      headers:
+        type: object
+        properties:
+          ce_type:
+            const: lagoski.fulfillment.shipment.delivered.v1
+          correlation_id:
+            type: string
+      payload:
+        allOf:
+          - $ref: '../schemas/cloudevent.json'
+          - type: object
+            properties:
+              data:
+                $ref: '../schemas/fulfillment/shipment.delivered.v1.json'

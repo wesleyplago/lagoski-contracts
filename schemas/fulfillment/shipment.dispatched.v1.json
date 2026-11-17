@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/wesleyplago/lagoski-contracts/schemas/fulfillment/shipment.dispatched.v1.json",
+  "title": "lagoski.fulfillment.shipment.dispatched.v1",
+  "description": "Transportadora coletou; código de rastreio disponível.",
+  "type": "object",
+  "required": [
+    "shipmentId",
+    "orderId",
+    "customerId",
+    "trackingCode",
+    "carrier"
+  ],
+  "properties": {
+    "shipmentId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^shp_"
+    },
+    "orderId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^ord_[0-9A-Z]{26}$"
+    },
+    "customerId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^cus_"
+    },
+    "trackingCode": {
+      "type": "string",
+      "minLength": 1
+    },
+    "carrier": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": true
+}

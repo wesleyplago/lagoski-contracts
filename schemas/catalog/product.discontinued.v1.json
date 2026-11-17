@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/wesleyplago/lagoski-contracts/schemas/catalog/product.discontinued.v1.json",
+  "title": "lagoski.catalog.product.discontinued.v1",
+  "description": "Produto saiu de venda; os SKUs deixam de aceitar novos pedidos.",
+  "type": "object",
+  "required": [
+    "productId",
+    "skus"
+  ],
+  "properties": {
+    "productId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^prd_"
+    },
+    "skus": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "additionalProperties": true
+}

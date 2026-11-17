@@ -1,0 +1,16 @@
+{
+  "specversion": "1.0",
+  "id": "01M7MQR674NDK7QD508EW1XSNR",
+  "source": "lagoski/catalog",
+  "type": "lagoski.catalog.product.discontinued.v1",
+  "subject": "product/prd_ondas",
+  "time": "2026-11-17T12:29:46.596Z",
+  "datacontenttype": "application/json",
+  "correlationid": "prd_ondas",
+  "data": {
+    "productId": "prd_ondas",
+    "skus": [
+      "TEE-ONDAS-PRETO-M"
+    ]
+  }
+}

@@ -1,0 +1,78 @@
+asyncapi: 3.0.0
+info:
+  title: Lagoski Ordering events
+  version: 0.1.0
+  description: |
+    Eventos publicados pelo bounded context ordering no tópico ordering.events.
+    Envelope CloudEvents 1.0 (modo estruturado); o atributo de mensagem ce_type
+    carrega o tipo e é usado nos filtros das assinaturas (SNS filter policy / filtro do Pub/Sub).
+defaultContentType: application/json
+channels:
+  orderingEvents:
+    address: ordering.events
+    description: Tópico lógico. Nome físico lagoski-<env>-ordering-events (SNS na AWS, Pub/Sub no GCP).
+    messages:
+      orderPlaced:
+        $ref: '#/components/messages/orderPlaced'
+      orderConfirmed:
+        $ref: '#/components/messages/orderConfirmed'
+      orderCancelled:
+        $ref: '#/components/messages/orderCancelled'
+operations:
+  publishOrderingEvents:
+    action: send
+    channel:
+      $ref: '#/channels/orderingEvents'
+components:
+  messages:
+    orderPlaced:
+      name: lagoski.ordering.order.placed.v1
+      summary: "Carrinho virou pedido, com preço congelado por item. Inicia a saga."
+      headers:
+        type: object
+        properties:
+          ce_type:
+            const: lagoski.ordering.order.placed.v1
+          correlation_id:
+            type: string
+      payload:
+        allOf:
+          - $ref: '../schemas/cloudevent.json'
+          - type: object
+            properties:
+              data:
+                $ref: '../schemas/ordering/order.placed.v1.json'
+    orderConfirmed:
+      name: lagoski.ordering.order.confirmed.v1
+      summary: "Pagamento autorizado: o pedido está confirmado."
+      headers:
+        type: object
+        properties:
+          ce_type:
+            const: lagoski.ordering.order.confirmed.v1
+          correlation_id:
+            type: string
+      payload:
+        allOf:
+          - $ref: '../schemas/cloudevent.json'
+          - type: object
+            properties:
+              data:
+                $ref: '../schemas/ordering/order.confirmed.v1.json'
+    orderCancelled:
+      name: lagoski.ordering.order.cancelled.v1
+      summary: "Pedido cancelado antes da confirmação."
+      headers:
+        type: object
+        properties:
+          ce_type:
+            const: lagoski.ordering.order.cancelled.v1
+          correlation_id:
+            type: string
+      payload:
+        allOf:
+          - $ref: '../schemas/cloudevent.json'
+          - type: object
+            properties:
+              data:
+                $ref: '../schemas/ordering/order.cancelled.v1.json'

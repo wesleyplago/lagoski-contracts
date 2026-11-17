@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/wesleyplago/lagoski-contracts/schemas/fulfillment/shipment.delivered.v1.json",
+  "title": "lagoski.fulfillment.shipment.delivered.v1",
+  "description": "Cliente recebeu o pacote.",
+  "type": "object",
+  "required": [
+    "shipmentId",
+    "orderId",
+    "customerId"
+  ],
+  "properties": {
+    "shipmentId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^shp_"
+    },
+    "orderId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^ord_[0-9A-Z]{26}$"
+    },
+    "customerId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^cus_"
+    }
+  },
+  "additionalProperties": true
+}

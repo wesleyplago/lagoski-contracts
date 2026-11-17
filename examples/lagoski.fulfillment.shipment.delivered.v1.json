@@ -1,0 +1,15 @@
+{
+  "specversion": "1.0",
+  "id": "01M7MQR85NEZP3GKG8JXMEG6YQ",
+  "source": "lagoski/fulfillment",
+  "type": "lagoski.fulfillment.shipment.delivered.v1",
+  "subject": "order/ord_01JD3X7Q9Z8K2M4N6P8R0T2V4X",
+  "time": "2026-11-17T12:29:48.597Z",
+  "datacontenttype": "application/json",
+  "correlationid": "ord_01JD3X7Q9Z8K2M4N6P8R0T2V4X",
+  "data": {
+    "shipmentId": "shp_01JD3X7Q9Z8K2M4N6P8R0T2V50",
+    "orderId": "ord_01JD3X7Q9Z8K2M4N6P8R0T2V4X",
+    "customerId": "cus_guest_8f2a"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/wesleyplago/lagoski-contracts/schemas/payment/payment.declined.v1.json",
+  "title": "lagoski.payment.payment.declined.v1",
+  "description": "O pagamento não aconteceu.",
+  "type": "object",
+  "required": [
+    "paymentId",
+    "orderId",
+    "customerId",
+    "reason"
+  ],
+  "properties": {
+    "paymentId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^pay_"
+    },
+    "orderId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^ord_[0-9A-Z]{26}$"
+    },
+    "customerId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^cus_"
+    },
+    "reason": {
+      "enum": [
+        "CHECKOUT_EXPIRED",
+        "ASYNC_PAYMENT_FAILED"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

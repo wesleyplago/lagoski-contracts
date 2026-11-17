@@ -1,0 +1,116 @@
+asyncapi: 3.0.0
+info:
+  title: Lagoski Inventory events
+  version: 0.1.0
+  description: |
+    Eventos publicados pelo bounded context inventory no tópico inventory.events.
+    Envelope CloudEvents 1.0 (modo estruturado); o atributo de mensagem ce_type
+    carrega o tipo e é usado nos filtros das assinaturas (SNS filter policy / filtro do Pub/Sub).
+defaultContentType: application/json
+channels:
+  inventoryEvents:
+    address: inventory.events
+    description: Tópico lógico. Nome físico lagoski-<env>-inventory-events (SNS na AWS, Pub/Sub no GCP).
+    messages:
+      stockReserved:
+        $ref: '#/components/messages/stockReserved'
+      stockReservationRejected:
+        $ref: '#/components/messages/stockReservationRejected'
+      stockReleased:
+        $ref: '#/components/messages/stockReleased'
+      stockCommitted:
+        $ref: '#/components/messages/stockCommitted'
+      reservationExpired:
+        $ref: '#/components/messages/reservationExpired'
+operations:
+  publishInventoryEvents:
+    action: send
+    channel:
+      $ref: '#/channels/inventoryEvents'
+components:
+  messages:
+    stockReserved:
+      name: lagoski.inventory.stock.reserved.v1
+      summary: "Todas as linhas do pedido foram reservadas até expiresAt."
+      headers:
+        type: object
+        properties:
+          ce_type:
+            const: lagoski.inventory.stock.reserved.v1
+          correlation_id:
+            type: string
+      payload:
+        allOf:
+          - $ref: '../schemas/cloudevent.json'
+          - type: object
+            properties:
+              data:
+                $ref: '../schemas/inventory/stock.reserved.v1.json'
+    stockReservationRejected:
+      name: lagoski.inventory.stock.reservation-rejected.v1
+      summary: "Algum SKU não tinha saldo; nada foi reservado."
+      headers:
+        type: object
+        properties:
+          ce_type:
+            const: lagoski.inventory.stock.reservation-rejected.v1
+          correlation_id:
+            type: string
+      payload:
+        allOf:
+          - $ref: '../schemas/cloudevent.json'
+          - type: object
+            properties:
+              data:
+                $ref: '../schemas/inventory/stock.reservation-rejected.v1.json'
+    stockReleased:
+      name: lagoski.inventory.stock.released.v1
+      summary: "Reserva devolvida ao disponível (pedido cancelado)."
+      headers:
+        type: object
+        properties:
+          ce_type:
+            const: lagoski.inventory.stock.released.v1
+          correlation_id:
+            type: string
+      payload:
+        allOf:
+          - $ref: '../schemas/cloudevent.json'
+          - type: object
+            properties:
+              data:
+                $ref: '../schemas/inventory/stock.released.v1.json'
+    stockCommitted:
+      name: lagoski.inventory.stock.committed.v1
+      summary: "Reserva virou baixa definitiva (pedido confirmado)."
+      headers:
+        type: object
+        properties:
+          ce_type:
+            const: lagoski.inventory.stock.committed.v1
+          correlation_id:
+            type: string
+      payload:
+        allOf:
+          - $ref: '../schemas/cloudevent.json'
+          - type: object
+            properties:
+              data:
+                $ref: '../schemas/inventory/stock.committed.v1.json'
+    reservationExpired:
+      name: lagoski.inventory.reservation.expired.v1
+      summary: "A reserva venceu sem confirmação do pedido."
+      headers:
+        type: object
+        properties:
+          ce_type:
+            const: lagoski.inventory.reservation.expired.v1
+          correlation_id:
+            type: string
+      payload:
+        allOf:
+          - $ref: '../schemas/cloudevent.json'
+          - type: object
+            properties:
+              data:
+                $ref: '../schemas/inventory/reservation.expired.v1.json'

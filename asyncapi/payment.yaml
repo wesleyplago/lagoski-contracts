@@ -1,0 +1,97 @@
+asyncapi: 3.0.0
+info:
+  title: Lagoski Payment events
+  version: 0.1.0
+  description: |
+    Eventos publicados pelo bounded context payment no tópico payment.events.
+    Envelope CloudEvents 1.0 (modo estruturado); o atributo de mensagem ce_type
+    carrega o tipo e é usado nos filtros das assinaturas (SNS filter policy / filtro do Pub/Sub).
+defaultContentType: application/json
+channels:
+  paymentEvents:
+    address: payment.events
+    description: Tópico lógico. Nome físico lagoski-<env>-payment-events (SNS na AWS, Pub/Sub no GCP).
+    messages:
+      paymentRequested:
+        $ref: '#/components/messages/paymentRequested'
+      paymentAuthorized:
+        $ref: '#/components/messages/paymentAuthorized'
+      paymentDeclined:
+        $ref: '#/components/messages/paymentDeclined'
+      paymentRefunded:
+        $ref: '#/components/messages/paymentRefunded'
+operations:
+  publishPaymentEvents:
+    action: send
+    channel:
+      $ref: '#/channels/paymentEvents'
+components:
+  messages:
+    paymentRequested:
+      name: lagoski.payment.payment.requested.v1
+      summary: "Checkout aberto no gateway; o cliente paga em checkoutUrl até expiresAt."
+      headers:
+        type: object
+        properties:
+          ce_type:
+            const: lagoski.payment.payment.requested.v1
+          correlation_id:
+            type: string
+      payload:
+        allOf:
+          - $ref: '../schemas/cloudevent.json'
+          - type: object
+            properties:
+              data:
+                $ref: '../schemas/payment/payment.requested.v1.json'
+    paymentAuthorized:
+      name: lagoski.payment.payment.authorized.v1
+      summary: "O gateway confirmou o pagamento."
+      headers:
+        type: object
+        properties:
+          ce_type:
+            const: lagoski.payment.payment.authorized.v1
+          correlation_id:
+            type: string
+      payload:
+        allOf:
+          - $ref: '../schemas/cloudevent.json'
+          - type: object
+            properties:
+              data:
+                $ref: '../schemas/payment/payment.authorized.v1.json'
+    paymentDeclined:
+      name: lagoski.payment.payment.declined.v1
+      summary: "O pagamento não aconteceu."
+      headers:
+        type: object
+        properties:
+          ce_type:
+            const: lagoski.payment.payment.declined.v1
+          correlation_id:
+            type: string
+      payload:
+        allOf:
+          - $ref: '../schemas/cloudevent.json'
+          - type: object
+            properties:
+              data:
+                $ref: '../schemas/payment/payment.declined.v1.json'
+    paymentRefunded:
+      name: lagoski.payment.payment.refunded.v1
+      summary: "Pagamento estornado por inteiro."
+      headers:
+        type: object
+        properties:
+          ce_type:
+            const: lagoski.payment.payment.refunded.v1
+          correlation_id:
+            type: string
+      payload:
+        allOf:
+          - $ref: '../schemas/cloudevent.json'
+          - type: object
+            properties:
+              data:
+                $ref: '../schemas/payment/payment.refunded.v1.json'

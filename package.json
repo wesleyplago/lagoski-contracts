@@ -1,0 +1,16 @@
+{
+  "name": "lagoski-contracts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Published Language do Lagoski: JSON Schemas e AsyncAPI dos eventos de integração.",
+  "packageManager": "pnpm@12.16.1",
+  "scripts": {
+    "validate": "node scripts/validate.mjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "yaml": "^2.6.1"
+  }
+}

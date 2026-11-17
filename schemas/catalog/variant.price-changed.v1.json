@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/wesleyplago/lagoski-contracts/schemas/catalog/variant.price-changed.v1.json",
+  "title": "lagoski.catalog.variant.price-changed.v1",
+  "description": "Preço de lista de uma variante mudou. Pedidos já fechados não mudam.",
+  "type": "object",
+  "required": [
+    "productId",
+    "sku",
+    "oldPriceCents",
+    "newPriceCents"
+  ],
+  "properties": {
+    "productId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^prd_"
+    },
+    "sku": {
+      "type": "string",
+      "minLength": 1
+    },
+    "oldPriceCents": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "newPriceCents": {
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "additionalProperties": true
+}

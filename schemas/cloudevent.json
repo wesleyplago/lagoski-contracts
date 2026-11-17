@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/wesleyplago/lagoski-contracts/schemas/cloudevent.json",
+  "title": "Envelope CloudEvents 1.0 do Lagoski",
+  "description": "Todo evento de integração usa este envelope. correlationid liga os eventos da mesma saga; causationid aponta o evento que causou este.",
+  "type": "object",
+  "required": [
+    "specversion",
+    "id",
+    "source",
+    "type",
+    "time",
+    "datacontenttype",
+    "correlationid",
+    "data"
+  ],
+  "properties": {
+    "specversion": {
+      "const": "1.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "ULID; chave de idempotência dos consumidores"
+    },
+    "source": {
+      "type": "string",
+      "pattern": "^lagoski/[a-z]+$"
+    },
+    "type": {
+      "type": "string",
+      "pattern": "^lagoski\\.[a-z]+\\.[a-z-]+\\.[a-z-]+\\.v[0-9]+$"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "datacontenttype": {
+      "const": "application/json"
+    },
+    "dataschema": {
+      "type": "string",
+      "format": "uri"
+    },
+    "correlationid": {
+      "type": "string",
+      "minLength": 1
+    },
+    "causationid": {
+      "type": "string"
+    },
+    "traceparent": {
+      "type": "string"
+    },
+    "data": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

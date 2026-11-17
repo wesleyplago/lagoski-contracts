@@ -1,0 +1,24 @@
+{
+  "specversion": "1.0",
+  "id": "01M7MQR671HTVAENGDV2THSCX5",
+  "source": "lagoski/catalog",
+  "type": "lagoski.catalog.product.published.v1",
+  "subject": "product/prd_ondas",
+  "time": "2026-11-17T12:29:46.595Z",
+  "datacontenttype": "application/json",
+  "correlationid": "prd_ondas",
+  "data": {
+    "productId": "prd_ondas",
+    "slug": "ondas-do-lago",
+    "name": "Ondas do Lago",
+    "currency": "BRL",
+    "variants": [
+      {
+        "sku": "TEE-ONDAS-PRETO-M",
+        "size": "M",
+        "color": "Preto",
+        "priceCents": 8990
+      }
+    ]
+  }
+}
